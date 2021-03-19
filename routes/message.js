@@ -170,24 +170,28 @@ router.post('/sendwhatsapptoall', (req, res) => {
     console.log(arr);
 
     arr.forEach((nos) => {
+        // to: 'whatsapp:+919470940924'
         var str = "whatsapp:+91" + nos;
         console.log(str);
         client.messages.create({
             to: str,
-            from: "whatsapp:+14155238886",
+            from: 'whatsapp:+14155238886',
             body: message,
             mediaUrl: linkimg
         }).then(message => {
             console.log(message.sid);
-        }).catch(err => console.log(err));
+        })
+        // .done()
+        .catch(err => console.log(err));
     })
     res.render('effect.ejs', { contactnos: arr });
 });
 
 
 const { MessagingResponse } = require('twilio').twiml;
-const accountSid = 'AC49280ab194cc76ba75d4783d5f68a391';
-const authToken = 'e1b3f04e85ef2fab83a317d21212227d';
+
+const accountSid = 'AC63dcb9c07e6cd8596c032a8ff5e59b1f';
+const authToken = '51d0d8024c8622ed13d4b729ab4cd92a';
 const client = require('twilio')(accountSid, authToken);
 const goodBoyUrl = 'https://lh3.googleusercontent.com/proxy/7q7Wx47mCOpMZC0_1j2RQNnNq7HEgCk5sjzIsyMw_meUpr2Xbyoy8BuyI1JFuAUU3gTrmyM2py04BPttN979w-c775WUwtyFwh6JQqHNG6GC0ZYNkiiBLKpPsB9xikmAm_1CWBDpBXwamn_Y-z_1BWmWXPWWBmqAZnJ6FbhuIPsCNAKO';
 
@@ -199,6 +203,11 @@ router.post('/sendwhatsapptoall', (req, res) => {
     var arr = req.body.contactnos.split(',');
     console.log(arr);
     arr.forEach((nos)=>{
+        if( nos.length <=10)
+        {
+
+        }
+        else{
         client.messages.create({
             to: "whatsapp:"+nos+"",
             from: "whatsapp:+14155238886",
@@ -207,6 +216,7 @@ router.post('/sendwhatsapptoall', (req, res) => {
         }).then(message => {
             console.log(message.sid);
         }).catch(err => console.log(err));
+    }
     })
     res.render('effect.ejs',{contactnos:arr});
 });

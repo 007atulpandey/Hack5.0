@@ -15,6 +15,17 @@
     <link rel ="stylesheet" href ="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Swastik|Child</title>
 </head>
+<style>
+    tr,td,th{
+        border:1px solid #000;
+        padding:10px;
+    }
+    th{
+        text-align:center;
+        color:#fff;
+        background-color: rgb(70, 71, 73);
+    }
+</style>
 <body>
     <div class ="container-fluid top-strip">
         <div class ="row text-center">
@@ -56,38 +67,43 @@
             </form>
           </div>
         </nav><br>
-        <body>
-            <div class ="container">
-                <div class ="row">
-                    <div class ="col-12 text-center">
-                        <h2>Register Patient</h2>
-                    </div>
-                </div><br>
-                <div class ="row">
-                    <div class ="col-md-3 col-xs-12"></div>
-                    <div class ="col-md-6 col-xs-12">
-                        <form action ="/case/register"method ="POST">
-                            <div class ="form-group"><input type ="text" name ="patient"class ="form-control" required placeholder="Name"></div>
-                            <div class ="form-group"><input type ="text" name ="age"class ="form-control" required placeholder="Age"></div>
-                            <div class ="form-group"><input type ="date" name ="DOA"class ="form-control" required placeholder="Date of Birth"></div>
-                            <div class ="form-group"><input type ="text" name ="disease[0]"class ="form-control" placeholder="Disease 1"></div>
-                            <div class ="form-group"><input type ="text" name ="disease[1]"class ="form-control" placeholder="Disease 2"disabled></div>
-                            <div class ="form-group"><input type ="text" name ="disease[2]"class ="form-control" placeholder="Disease 3"disabled></div>
-                            <div class ="form-group"><input type ="text" name ="disease[3]"class ="form-control" placeholder="Disease 4"disabled></div>
-                            <div class ="form-group">
-                                <input type ="radio" name ="Effect" value ="minor">&nbsp;&nbsp;&nbsp;Minor&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type ="radio" name ="Effect" value ="major">&nbsp;&nbsp;&nbsp;Major&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type ="radio" name ="Effect" value ="fatal">&nbsp;&nbsp;&nbsp;Fatal&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type ="radio" name ="Effect" value ="brutal">&nbsp;&nbsp;&nbsp;Brutal&nbsp;&nbsp;&nbsp;&nbsp;
-                            </div>
-                                
-                            <div class ="form-group"><input type ="number" name ="pincode"class ="form-control" placeholder="Pincode"></div>
-                            <button class ="btn btn-success" name= "submit" type ="submit" style="margin-left: 30%;width: 30%;">&nbsp;&nbsp;&nbsp;Submit&nbsp;&nbsp;&nbsp;>></button>
-                            </div>
-                        </form>
-                    </div>
+        <div class="col-sm-12">
+          <form method="POST" action="http://localhost:5000/predict" >
+            <!-- <input value="<%=//cases%>" name="cases" type="hidden">&nbsp;&nbsp; -->
+            <button class="btn btn-warning">GET EPIDEMIC ALARMS PREDICTIONS</button>
+          </form>
+        </div>
+        <div class ="container">
+            <div class ="row">
+                <div class ="col-12 text-center">
+                    <h3><u>Patient Details</u></h3>
                 </div>
-            </div>
-
-</body>
-</html>
+            </div><br>
+            <dic class ="row">
+                <div class ="col-md-1 col-xs-12"></div>
+                <div class ="col-md-10 col-xs-12">
+                    <table style ="width:100%;padding:50px;border:1px solid #000">
+                        <tr>
+                            <th>Patient</th>
+                            <th>Age</th>
+                            <th>DOB</th>
+                            <th>Pincode</th>
+                            <th>Diseases</th>
+                            <th>Effect</th>
+                        </tr>
+                       <%cases.forEach((data)=>{%>
+                            <tr>
+                                <td><%=data.patient%></td>
+                                <td class ="text-center"><%=data.age%></td>
+                                <td class ="text-center"><%=data.DOA%></td>
+                                <td class ="text-center"><%=data.pincode%></td>
+                                <td class ="text-center"><%=data.disease%></td>
+                                <td class ="text-center"><%=data.Effect%></td>
+                            </tr>
+                       <%})%>
+                    </table>
+                </div>
+            </dic>
+        </div>
+        </body>
+        </html>
